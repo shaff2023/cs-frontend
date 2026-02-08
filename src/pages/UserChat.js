@@ -4,9 +4,10 @@ import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import io from 'socket.io-client';
 import { soundManager } from '../utils/sounds';
+import { getSocketUrl, getBaseUrl } from '../config/env';
 import './UserChat.css';
 
-const socket = io('http://localhost:5000');
+const socket = io(getSocketUrl());
 
 const UserChat = () => {
   const { user, logout } = useAuth();
@@ -452,9 +453,9 @@ const UserChat = () => {
                       {msg.file_path && (
                         <div className="message-image">
                           <img 
-                            src={`http://localhost:5000${msg.file_path}`} 
+                            src={`${getBaseUrl()}${msg.file_path}`} 
                             alt={msg.file_name || 'Uploaded image'}
-                            onClick={() => window.open(`http://localhost:5000${msg.file_path}`, '_blank')}
+                            onClick={() => window.open(`${getBaseUrl()}${msg.file_path}`, '_blank')}
                           />
                           {msg.file_name && <div className="image-name">{msg.file_name}</div>}
                         </div>

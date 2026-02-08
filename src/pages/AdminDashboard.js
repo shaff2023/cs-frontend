@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import io from 'socket.io-client';
+import { getSocketUrl, getBaseUrl } from '../config/env';
 import './AdminDashboard.css';
 
-const socket = io('http://localhost:5000');
+const socket = io(getSocketUrl());
 
 const AdminDashboard = () => {
   const { user, logout } = useAuth();
@@ -458,15 +459,15 @@ const AdminDashboard = () => {
                       {msg.file_path && (
                         <div className="message-image">
                           <img 
-                            src={`http://localhost:5000${msg.file_path}`} 
+                            src={`${getBaseUrl()}${msg.file_path}`} 
                             alt={msg.file_name || 'Uploaded image'}
-                            onClick={() => window.open(`http://localhost:5000${msg.file_path}`, '_blank')}
+                            onClick={() => window.open(`${getBaseUrl()}${msg.file_path}`, '_blank')}
                           />
                           {msg.file_name && (
                             <div className="image-name">
                               {msg.file_name}
                               <a 
-                                href={`http://localhost:5000${msg.file_path}`} 
+                                href={`${getBaseUrl()}${msg.file_path}`} 
                                 download={msg.file_name}
                                 className="download-link"
                               >
